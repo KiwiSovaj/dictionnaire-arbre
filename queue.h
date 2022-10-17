@@ -1,8 +1,0 @@
-//
-// Created by johan on 17/10/2022.
-//
-
-#ifndef DICTIONNAIRE_ARBRE_QUEUE_H
-#define DICTIONNAIRE_ARBRE_QUEUE_H
-
-#endif //DICTIONNAIRE_ARBRE_QUEUE_H
