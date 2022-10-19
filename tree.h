@@ -6,15 +6,15 @@
 #define DICTIONNAIRE_ARBRE_TREE_H
 
 #include "list.h"
-#include <stdio.h>
+#include "node.h"
 
-struct s_node_letter
+struct s_dict_tree
 {
-    char letter;
-    t_ht_list* next_letter;
-    t_ht_list* spelling;
+    p_node_letter root;
 };
-typedef struct s_node_letter* p_node_letter;
+typedef struct s_dict_tree t_dict_tree;
 
+t_dict_tree createDictTree();
+void addWordTree(char*);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H
