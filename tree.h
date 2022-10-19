@@ -8,13 +8,13 @@
 #include "list.h"
 #include "node.h"
 
-struct s_dict_tree
+struct s_tree
 {
     p_node_letter root;
 };
-typedef struct s_dict_tree t_dict_tree;
+typedef struct s_tree t_tree;
 
-t_dict_tree createDictTree();
+t_tree createTree();
 void addWordTree(char*);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H

@@ -4,9 +4,9 @@
 #include "tree.h"
 #include "node.h"
 
-t_dict_tree createDictTree()
+t_tree createTree()
 {
-    t_dict_tree dict_tree;
-    dict_tree.root = createNodeLetter('/');
-    return dict_tree;
+    t_tree tree;
+    tree.root = createNodeLetter('/');
+    return tree;
 }
