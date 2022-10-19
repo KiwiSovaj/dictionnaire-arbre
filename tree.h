@@ -7,6 +7,9 @@
 
 #include "list.h"
 #include "node.h"
+#include "reader.h"
+#include <stdio.h>
+#include <string.h>
 
 struct s_tree
 {
@@ -15,6 +18,6 @@ struct s_tree
 typedef struct s_tree t_tree;
 
 t_tree createTree();
-void addWordTree(char*);
+void addWordTree(FILE*,LINE);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H

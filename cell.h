@@ -7,7 +7,7 @@
 
 struct s_cell
 {
-    int value;
+    char value;
     struct s_cell *next;
 };
 

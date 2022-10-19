@@ -35,7 +35,6 @@ LINE extractFromFile(FILE* dictionnary)
         line.base_form = base_form;
         line.type = type;
         line.gender = gender;
-        printf("%s",line.type);
         return line;
     }
     else

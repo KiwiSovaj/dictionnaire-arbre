@@ -6,6 +6,7 @@
 #define DICTIONNAIRE_ARBRE_LIST_H
 
 #include "cell.h"
+#include <stdio.h>
 
 typedef struct s_ht_list
 {
@@ -13,4 +14,5 @@ typedef struct s_ht_list
     p_cell tail;
 } t_ht_list;
 
+int findCharacter(t_ht_list*,char);
 #endif //DICTIONNAIRE_ARBRE_LIST_H
