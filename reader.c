@@ -4,7 +4,7 @@
 
 #include "reader.h"
 
-void extract(char *String, char *SubString, int from, int to)
+void createSubString(char *String, char *SubString, int from, int to)
 {
     int lenght = strlen(String);
     if (to==0)
@@ -29,8 +29,8 @@ LINE extractFromFile(FILE* dictionnary)
         char type[TAILLE];
         char gender[TAILLE];
         fscanf(dictionnary, "%s %s %s", spelling_form, base_form, gender);
-        extract(gender, type, 0, 2);
-        extract(gender, gender, 3, 0);
+        createSubString(gender, type, 0, 2);
+        createSubString(gender, gender, 3, 0);
         line.spelling_form = spelling_form;
         line.base_form = base_form;
         line.type = type;
@@ -39,5 +39,5 @@ LINE extractFromFile(FILE* dictionnary)
         return line;
     }
     else
-        printf("On ne peut pas lire le fichier");
+        printf("ERROR : On ne peut pas lire le fichier");
 }

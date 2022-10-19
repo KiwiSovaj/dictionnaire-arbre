@@ -3,8 +3,4 @@
 //
 #include "tree.h"
 
-FILE* dictionnary = NULL;
-dictionnary = fopen("dictionnaire.txt","r");
-extractFromFile(dictionnary);
-fclose(dictionnary);
 

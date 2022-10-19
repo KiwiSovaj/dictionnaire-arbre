@@ -16,5 +16,5 @@ typedef struct line{
     char* gender;
 }LINE;
 
-void extract(char*, char*, int, int);
+void createSubString(char*, char*, int, int);
 LINE extractFromFile(FILE*);
