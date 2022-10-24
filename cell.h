@@ -5,9 +5,10 @@
 #ifndef DICTIONNAIRE_ARBRE_CELL_H
 #define DICTIONNAIRE_ARBRE_CELL_H
 
+#include "node.h"
 struct s_cell
 {
-    char value;
+    p_node_letter value;
     struct s_cell *next;
 };
 

@@ -19,24 +19,23 @@ void createSubString(char *String, char *SubString, int from, int to)
     }
 }
 
-LINE extractFromFile(FILE* dictionnary)
+LINE extractFromString(FILE* dictionnary)
 {
-    LINE line;
-    if (dictionnary != NULL)
-    {
-        char spelling_form[TAILLE];
-        char base_form[TAILLE];
-        char type[TAILLE];
-        char gender[TAILLE];
+    LINE ligne;
+    char spelling_form[TAILLE];
+    char base_form[TAILLE];
+    char type[TAILLE];
+    char gender[TAILLE];
+    char chaine[TAILLE];
+    //while(fgets(chaine, TAILLE, dictionnary) != NULL) {
         fscanf(dictionnary, "%s %s %s", spelling_form, base_form, gender);
         createSubString(gender, type, 0, 2);
         createSubString(gender, gender, 3, 0);
-        line.spelling_form = spelling_form;
-        line.base_form = base_form;
-        line.type = type;
-        line.gender = gender;
-        return line;
-    }
-    else
-        printf("ERROR : On ne peut pas lire le fichier");
+        ligne.spelling_form = spelling_form;
+        ligne.base_form = base_form;
+        ligne.type = type;
+        ligne.gender = gender;
+        //printf("%s\n",ligne.type);
+    //}
+    return ligne;
 }

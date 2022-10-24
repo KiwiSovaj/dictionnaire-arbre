@@ -18,6 +18,6 @@ struct s_tree
 typedef struct s_tree t_tree;
 
 t_tree createTree();
-void addWordTree(FILE*,LINE);
+void addWordTree(FILE*);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H

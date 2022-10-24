@@ -4,17 +4,21 @@
 
 #ifndef DICTIONNAIRE_ARBRE_READER_H
 #define DICTIONNAIRE_ARBRE_READER_H
+
 #include "string.h"
 #include <stdio.h>
-#define TAILLE 1000
-#endif //DICTIONNAIRE_ARBRE_READER_H
+#define TAILLE 10000
 
-typedef struct line{
+typedef struct{
     char* spelling_form;
     char* base_form;
     char* type;
     char* gender;
-}LINE;
+} LINE;
+
 
 void createSubString(char*, char*, int, int);
-LINE extractFromFile(FILE*);
+LINE extractFromString(FILE*);
+
+#endif //DICTIONNAIRE_ARBRE_READER_H
+
