@@ -3,10 +3,11 @@
 //
 
 #include "list.h"
+#include <stdlib.h>
 
-int findCharacter(t_ht_list* list, char c)
+int findCharacter(t_ht_list list, char c)
 {
-    p_cell tmp = list->head;
+    p_cell tmp = list.head;
     while(tmp != NULL)
     {
         if(tmp->value == c)
@@ -14,4 +15,25 @@ int findCharacter(t_ht_list* list, char c)
         tmp = tmp->next;
     }
     return 0;
+}
+
+t_ht_list createHTlist()
+{
+    t_ht_list list = (t_ht_list) malloc(sizeof(t_ht_list));
+    list.head = list.tail = NULL;
+}
+
+void addHeadHT(t_HT_list* list, char letter)
+{
+    p_cell newcell = createCell(createNodeLetter(letter));
+    newcell->next = list->head;
+    list->head = newcell;
+    return;
+}
+
+void addTailHT(t_HT_list* list, char letter)
+{
+    p_cell newcell = createCell(createNodeLetter(letter));
+    list->tail = newcell;
+    return;
 }

@@ -3,7 +3,7 @@
 //
 
 #include "node.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 p_node_letter createNodeLetter(char letter)
 {

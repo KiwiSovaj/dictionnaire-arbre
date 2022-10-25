@@ -10,6 +10,7 @@
 #include "reader.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct s_tree
 {

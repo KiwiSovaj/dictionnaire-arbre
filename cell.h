@@ -13,5 +13,6 @@ struct s_cell
 };
 
 typedef struct s_cell t_cell, *p_cell;
+p_cell createCell(p_node_letter);
 
 #endif //DICTIONNAIRE_ARBRE_CELL_H
