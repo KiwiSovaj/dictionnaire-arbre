@@ -10,33 +10,32 @@ t_tree createTree()
     return tree;
 }
 
+
 void addWordTree(t_tree* t, char* word)
 {
     int lenght = strlen(word);
     p_node_letter tmp_node = t->root;
-    p_cell tmp_cell;
     for(int i=0 ; i<lenght ; i++)
     {
-        if(tmp_node->next_letters == NULL)
+        for(int k=0 ; k<tmp_node->nb_next_letters ; k++)
         {
-            tmp_node->next_letters = createHTlist();
-        }
-        tmp_cell = tmp_node->next_letters;
-        while(tmp_cell != NULL && tmp_cell->value->letter != word[i])
-        {
-            tmp_cell = tmp_cell->next;
-        }
-        if(tmp_cell == NULL)
-        {
-            addTailHT(tmp_node->next_letters, word[i]);
-            tmp_node = tmp_node->next_letters->tail;
-        }
-        else
-        {
-            tmp_node = tmp_cell->value;
+            if(tmp_node->next_letters[k]->letter == word[i])
+            {
+                displayNode(tmp_node);   //////////////////
+                tmp_node = tmp_node->next_letters[k];
+                continue;
+            }
+            else
+            {
+                displayNode(tmp_node); ///////////////
+                tmp_node->next_letters[tmp_node->nb_next_letters] = createNodeLetter(word[i]);
+                tmp_node->nb_next_letters ++;
+                tmp_node = tmp_node->next_letters[tmp_node->nb_next_letters-1];
+            }
         }
     }
 }
+
 
 // loop de parcours du fichier
 

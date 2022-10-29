@@ -2,6 +2,7 @@
 // Created by johan on 17/10/2022.
 //
 #include "reader.h"
+#include "node.h"
 #include "tree.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,15 +17,27 @@ int main()
     char chaine[TAILLE];
 
     FILE* dictionnary = NULL;
-    dictionnary = fopen("dictionnaire.txt","r");
+    LINE line;
+    dictionnary = fopen("dico_10_lignes.txt","r");
 
     t_tree t = createTree();
 
-    while(fgets(chaine, TAILLE, dictionnary) != NULL) {
-        LINE ligne = extractFromString(dictionnary);
-        addWordTree(&t, ligne.base_form);
+    while(fgets(chaine, TAILLE, dictionnary) != NULL)
+    {
+        line = extractFromString(dictionnary);
+        addWordTree(&t, line.base_form);
     }
 
     fclose(dictionnary);
+
     return 0;
 }
+
+
+/*
+    p_node_letter node1 = createNodeLetter('a');
+    p_node_letter node2 = createNodeLetter('b');
+    node1->nb_next_letters = 1;
+    node1->next_letters[0] = node2;
+    displayNode(node1);
+ */

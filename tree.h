@@ -5,9 +5,7 @@
 #ifndef DICTIONNAIRE_ARBRE_TREE_H
 #define DICTIONNAIRE_ARBRE_TREE_H
 
-#include "list.h"
 #include "node.h"
-#include "reader.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
