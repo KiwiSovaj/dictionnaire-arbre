@@ -5,9 +5,9 @@
 #include "cell.h"
 #include <stdlib.h>
 
-p_cell createCell(p_node_letter)
+p_cell createCell(p_node_letter pn)
 {
     p_cell newcell = (p_cell) malloc(sizeof(p_cell));
-    newcell->value = p_node_letter;
+    newcell->value = pn;
     newcell->next = NULL;
 }

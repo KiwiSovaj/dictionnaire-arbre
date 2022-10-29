@@ -10,7 +10,7 @@ int findCharacter(t_ht_list list, char c)
     p_cell tmp = list.head;
     while(tmp != NULL)
     {
-        if(tmp->value == c)
+        if(tmp->value->letter == c)
             return 1;
         tmp = tmp->next;
     }
@@ -23,17 +23,15 @@ t_ht_list createHTlist()
     list.head = list.tail = NULL;
 }
 
-void addHeadHT(t_HT_list* list, char letter)
+void addHeadHT(t_ht_list* list, char letter)
 {
     p_cell newcell = createCell(createNodeLetter(letter));
     newcell->next = list->head;
     list->head = newcell;
-    return;
 }
 
-void addTailHT(t_HT_list* list, char letter)
+void addTailHT(t_ht_list* list, char letter)
 {
     p_cell newcell = createCell(createNodeLetter(letter));
     list->tail = newcell;
-    return;
 }

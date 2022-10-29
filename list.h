@@ -16,7 +16,7 @@ typedef struct s_ht_list
 
 int findCharacter(t_ht_list, char);
 t_ht_list createHTlist();
-void addHeadHT(t_HT_list* list, char letter)
-void addTailHT(t_HT_list* list, char letter);
+void addHeadHT(t_ht_list* list, char letter);
+void addTailHT(t_ht_list* list, char letter);
 
 #endif //DICTIONNAIRE_ARBRE_LIST_H
