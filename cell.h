@@ -6,6 +6,7 @@
 #define DICTIONNAIRE_ARBRE_CELL_H
 
 #include "node.h"
+
 struct s_cell
 {
     p_node_letter value;

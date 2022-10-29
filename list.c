@@ -19,8 +19,9 @@ int findCharacter(t_ht_list list, char c)
 
 t_ht_list createHTlist()
 {
-    t_ht_list list = (t_ht_list) malloc(sizeof(t_ht_list));
+    t_ht_list list;
     list.head = list.tail = NULL;
+    return list;
 }
 
 void addHeadHT(t_ht_list* list, char letter)

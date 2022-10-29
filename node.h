@@ -14,7 +14,7 @@ struct s_node_letter
     t_ht_list* spelling_forms;
     int nb_spelling_forms;
 };
-typedef  struct s_node_letter* p_node_letter;
+typedef struct s_node_letter* p_node_letter;
 
 p_node_letter createNodeLetter(char);
 

@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// version CMAKE alexis et cédric : 3.21.1
+// version CMAKE johan : 3.23
+// Pensez à changer la version dans la première ligne de CMakeLists.txt sinon ça marchera pas
+
 
 int main()
 {

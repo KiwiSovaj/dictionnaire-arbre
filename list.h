@@ -8,11 +8,12 @@
 #include "cell.h"
 #include <stdio.h>
 
-typedef struct s_ht_list
+struct s_ht_list
 {
     p_cell head;
     p_cell tail;
-} t_ht_list;
+};
+typedef struct s_ht_list t_ht_list;
 
 int findCharacter(t_ht_list, char);
 t_ht_list createHTlist();
