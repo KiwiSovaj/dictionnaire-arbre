@@ -22,12 +22,13 @@ void createSubString(char *String, char *SubString, int from, int to)
 LINE extractFromString(FILE* dictionnary)
 {
     LINE ligne;
-    char spelling_form[TAILLE];
-    char base_form[TAILLE];
-    char type[TAILLE];
-    char gender[TAILLE];
-    char chaine[TAILLE];
-    //while(fgets(chaine, TAILLE, dictionnary) != NULL) {
+    if (dictionnary != NULL) {
+        char spelling_form[TAILLE];
+        char base_form[TAILLE];
+        char type[TAILLE];
+        char gender[TAILLE];
+        char chaine[TAILLE];
+        //while(fgets(chaine, TAILLE, dictionnary) != NULL) {
         fscanf(dictionnary, "%s %s %s", spelling_form, base_form, gender);
         createSubString(gender, type, 0, 2);
         createSubString(gender, gender, 3, 0);
@@ -36,6 +37,9 @@ LINE extractFromString(FILE* dictionnary)
         ligne.type = type;
         ligne.gender = gender;
         //printf("%s\n",ligne.type);
-    //}
-    return ligne;
+        //}
+        return ligne;
+    }
+    else
+        printf("ERROR : Cannot read the file !");
 }
