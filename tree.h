@@ -17,6 +17,7 @@ struct s_tree
 typedef struct s_tree t_tree;
 
 t_tree createTree();
-void addWordTree(t_tree*, char* word);
+void addWordTree_BaseForm(t_tree*, char* word);
+char* readRandomWord_BaseForm(t_tree*);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H

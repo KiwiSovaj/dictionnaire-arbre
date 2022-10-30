@@ -5,7 +5,8 @@
 #ifndef DICTIONNAIRE_ARBRE_NODE_H
 #define DICTIONNAIRE_ARBRE_NODE_H
 
-#define NB_LETTER_MAX 26
+#define NB_LETTER_MAX 37
+// 26 letttre + â + à + é + è + ê + ë + ï + î + ô + ù + û + '-' (mots composés) = 38
 
 struct s_node_letter
 {
