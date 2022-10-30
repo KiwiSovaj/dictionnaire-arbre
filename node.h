@@ -17,6 +17,7 @@ struct s_node_letter
     char** spelling_forms;
 };
 typedef struct s_node_letter* p_node_letter;
+typedef struct  s_node_letter t_node_letter;
 
 p_node_letter createNodeLetter(char);
 void displayNode(p_node_letter);

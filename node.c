@@ -8,14 +8,13 @@
 
 p_node_letter createNodeLetter(char letter)
 {
-    p_node_letter next_l[NB_LETTER_MAX];   // par sûr que yai besoin de définir ça vu que la structure crée une liste
-
-    p_node_letter node = (p_node_letter) malloc(sizeof(p_node_letter));
+    p_node_letter node = (p_node_letter) malloc(sizeof(t_node_letter));
     node->letter = letter;
     node->nb_next_letters = 0;
 
     node->spelling_forms = NULL;
     node->nb_spelling_forms = 0;
+
     return node;
 }
 
