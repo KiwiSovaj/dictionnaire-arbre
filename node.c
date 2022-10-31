@@ -8,10 +8,11 @@
 
 p_node_letter createNodeLetter(char letter)
 {
+    /// Cette fonction crée et initialise une p_node_letter et la retourne ensuite.
+
     p_node_letter node = (p_node_letter) malloc(sizeof(t_node_letter));
     node->letter = letter;
     node->nb_next_letters = 0;
-
     node->spelling_forms = NULL;
     node->nb_spelling_forms = 0;
 
@@ -20,6 +21,8 @@ p_node_letter createNodeLetter(char letter)
 
 void displayNode(p_node_letter pn)
 {
+    /// Cette fonction affiche le contenu d'une p_node_letter.
+
     printf("letter : %c\n", pn->letter);
     printf("%d next letters :\n", pn->nb_next_letters);
     for(int i=0 ; i<pn->nb_next_letters ; i++)

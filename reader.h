@@ -16,8 +16,7 @@ typedef struct{
     char* gender;
 } LINE;
 
-
-void createSubString(char*, char*, int, int);
+void createSubString(char* string, char* substring, int from, int to);
 LINE extractFromString(FILE*);
 
 #endif //DICTIONNAIRE_ARBRE_READER_H

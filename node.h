@@ -6,7 +6,7 @@
 #define DICTIONNAIRE_ARBRE_NODE_H
 
 #define NB_LETTER_MAX 37
-// 26 letttre + â + à + é + è + ê + ë + ï + î + ô + ù + û + '-' (mots composés) = 38
+// 26 letttres + â + à + é + è + ê + ë + ï + î + ô + ù + û + '-' (mots composés) = 38
 
 struct s_node_letter
 {
@@ -19,7 +19,7 @@ struct s_node_letter
 typedef struct s_node_letter* p_node_letter;
 typedef struct  s_node_letter t_node_letter;
 
-p_node_letter createNodeLetter(char);
+p_node_letter createNodeLetter(char letter);
 void displayNode(p_node_letter);
 
 #endif //DICTIONNAIRE_ARBRE_NODE_H
