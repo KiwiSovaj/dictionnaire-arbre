@@ -20,7 +20,7 @@ int main()
     FILE* dictionnary = NULL;
     LINE line;
     // attention le fichier à ouvrir doit se trouver dans le dossier cmake-build-debug
-    dictionnary = fopen("dictionnaire_non_accentue.txt","r");
+    dictionnary = fopen("dico_10_lignes.txt","r");
 
     // création des différents arbres
     t_tree t_name = createTree();
@@ -34,18 +34,28 @@ int main()
     t_tree t_pre = createTree();
 
     // boucle de lecture du fichier et de remplissage des arbres
+
+    /*
     while(fgets(chaine, TAILLE, dictionnary) != NULL) // boucle de création des arbres
     {
         line = extractFromString(dictionnary);
         findAndAddTree_BaseForm(line, &t_name, &t_adj, &t_verbs, &t_adv, &t_abr, &t_pro, &t_con, &t_int, &t_pre);
     }
     fclose(dictionnary);
+     */
+
+    while(fgets(chaine, TAILLE, dictionnary) != NULL) // boucle de création des arbres
+    {
+        line = extractFromString(dictionnary);
+        findAndAddTree_SpellingForm(line, &t_name, &t_adj, &t_verbs, &t_adv, &t_abr, &t_pro, &t_con, &t_int, &t_pre);
+    }
 
     // création de phrases aléatoires
     randomSentences_BaseForm(t_name, t_adj, t_verbs, t_adv);
 
     // Test de la fonction de recherche
-    printf("%d\n" ,isWordInTree_BaseForm(t_name, "stabilimetre"));
+    printf("%d\n", isWordInTree_BaseForm(t_name, "stabilimetre"));
+    isWordInTree_BaseForm(t_verbs, "stabiliser");
 
     return 0;
 }

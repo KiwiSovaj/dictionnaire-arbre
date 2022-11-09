@@ -148,6 +148,7 @@ int isWordInTree_BaseForm(t_tree t, char* word)
         else
             tmp_node = tmp_node->next_letters[index];
     }
+    displayStdWordList(tmp_node->spelling_forms);
     return 1;
 }
 
@@ -167,4 +168,106 @@ void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tre
     printf("%s ", readRandomWord_BaseForm(t_verbs));
     printf("%s ", readRandomWord_BaseForm(t_name));
     printf("%s\n", readRandomWord_BaseForm(t_adj));
+}
+
+void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gender)
+{
+    /// Cette fonction ajoute un mot dans un arbre n-aire donné.
+    /// Cette fonction prend en charge que les spelling forms
+
+    // printf("%s\n", word);
+    int lenght = strlen(base_form);
+    int index;
+    p_node_letter tmp_node = t->root;
+    for(int i=0 ; i<lenght ; i++)   // On va placer les lettres du mot une par une
+    {
+        if(tmp_node->nb_next_letters == 0)  // si la node courante n'a pas de lettre suivante, on en ajoute une
+        {
+            // displayNode(tmp_node);
+            tmp_node->next_letters[0] = createNodeLetter(base_form[i]);
+            tmp_node->nb_next_letters = 1;
+            tmp_node = tmp_node->next_letters[0];
+            continue;
+        }
+        index = 0;
+        while(index < tmp_node->nb_next_letters && tmp_node->next_letters[index]->letter != base_form[i]) // on cherche si la lettre est déjà dans la node courante
+            index++;
+
+        if(index < tmp_node->nb_next_letters) // si cette condition est vraie, alors on a trouvé la lettre dans la liste
+        {
+            // displayNode(tmp_node);
+            tmp_node = tmp_node->next_letters[index];
+            continue;
+        }
+        else  // sinon, cela signifie qu'on n'a pas trouvé la lettre et qu'on doit lui créer une node
+        {
+            // displayNode(tmp_node);
+            tmp_node->next_letters[tmp_node->nb_next_letters] = createNodeLetter(base_form[i]);
+            tmp_node->nb_next_letters ++;
+            tmp_node = tmp_node->next_letters[tmp_node->nb_next_letters-1];
+        }
+    }
+    printf("%s %s\n", word, gender);
+    addHeadStd(&(tmp_node->spelling_forms), word, gender);
+    tmp_node->nb_spelling_forms++;
+
+    // displayNode(tmp_node);
+}
+
+void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
+                             t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre)
+{
+    /// Cette fonction cherche dans quel arbre doit aller le mot qu'on lui donne, et lance ensuite la fonction
+    /// permettant d'ajouter le mot dans l'arbre adapté. Ne fonctionne qu'avec les formes de base
+
+    switch(line.type[2])   // on utilise dans les case la dernière lettre des types de mots pour identifier le dictionnaire, car elles sont toutes différentes sauf dans un cas
+    {
+        case 'm':  // noms
+        {
+            addWordTree_SpellingForm(t_name, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 'j': // adjectifs
+        {
+            addWordTree_SpellingForm(t_adj, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 'r': // verbes et abréviations
+        {
+            if(line.type[0] == 'V')  // verbes
+                addWordTree_SpellingForm(t_verbs, line.base_form, line.spelling_form, line.gender);
+            else if(line.type[0] == 'A')  // abréviations
+                addWordTree_SpellingForm(t_abr, line.base_form, line.spelling_form, line.gender);
+            else
+                printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+            break;
+        }
+        case 'v': // adverbes
+        {
+            addWordTree_SpellingForm(t_adv, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 'o': // pronoms
+        {
+            addWordTree_SpellingForm(t_pro, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 'n': // conjonctions
+        {
+            addWordTree_SpellingForm(t_con, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 't': // interjections
+        {
+            addWordTree_SpellingForm(t_int, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        case 'e':  // prepositions
+        {
+            addWordTree_SpellingForm(t_pre, line.base_form, line.spelling_form, line.gender);
+            break;
+        }
+        default: // type inconnu
+            printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+    }
 }

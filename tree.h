@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "reader.h"
+#include "list.h"
 
 struct s_tree
 {
@@ -24,5 +25,9 @@ void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t
 char* readRandomWord_BaseForm(t_tree p_tree);
 int isWordInTree_BaseForm(t_tree tree, char* word);
 void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv);
+
+void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gender);
+void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
+                                 t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H

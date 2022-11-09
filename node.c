@@ -13,8 +13,8 @@ p_node_letter createNodeLetter(char letter)
     p_node_letter node = (p_node_letter) malloc(sizeof(t_node_letter));
     node->letter = letter;
     node->nb_next_letters = 0;
-    node->spelling_forms = NULL;
     node->nb_spelling_forms = 0;
+    node->spelling_forms = createEmptyList();
 
     return node;
 }
@@ -27,8 +27,5 @@ void displayNode(p_node_letter pn)
     printf("%d next letters :\n", pn->nb_next_letters);
     for(int i=0 ; i<pn->nb_next_letters ; i++)
         printf("%c ", pn->next_letters[i]->letter);
-    printf("\n%d spelling forms :\n", pn->nb_spelling_forms);
-    for(int i=0 ; i<pn->nb_spelling_forms ; i++)
-        printf("%s ", pn->spelling_forms[i]);
-    printf("\n");
+    printf("\nil y a %d spelling forms :\n", pn->nb_spelling_forms);
 }
