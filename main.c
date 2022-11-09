@@ -51,22 +51,22 @@ int main()
     }
 
     // création de phrases aléatoires
-    randomSentences_BaseForm(t_name, t_adj, t_verbs, t_adv);
+    //randomSentences_BaseForm(t_name, t_adj, t_verbs, t_adv);
 
     // Test de la fonction de recherche
-    printf("%d\n", isWordInTree_BaseForm(t_name, "stabilimetre"));
-    isWordInTree_BaseForm(t_verbs, "stabiliser");
+    printf("\n%s", readRandomWord_SpellingForms(t_verbs, ":IPre+SG+P1:IPre+SG+P3:SPre+SG+P1:SPre+SG+P3:ImPre+SG+P2"));
 
     return 0;
 }
 
 ///////////////////////////////////////////// A FAIRE //////////////////////////////////////////////////
 
-/// Intégrer les spelling forms
-/// adapter ensuite la création du dico et la lecture de mots random à ce changement
-
 /// Faire la recherche de mots avec les spelling forms ensuite
 
 /// Dans la boucle qui lit, la première ligne du fichier se fait skip, et la dernière passe 2 fois --> pour alexis
+
+/// Fonction pour prendre random genre et nombre + concaténation de la phrase
+
+/// Terminer gen phrases
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

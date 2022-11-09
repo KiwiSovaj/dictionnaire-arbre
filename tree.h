@@ -29,5 +29,6 @@ void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tre
 void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gender);
 void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
                                  t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre);
+char* readRandomWord_SpellingForms(t_tree t, char* gender);
 
 #endif //DICTIONNAIRE_ARBRE_TREE_H
