@@ -148,7 +148,6 @@ int isWordInTree_BaseForm(t_tree t, char* word)
         else
             tmp_node = tmp_node->next_letters[index];
     }
-    displayStdWordList(tmp_node->spelling_forms);
     return 1;
 }
 
@@ -207,7 +206,6 @@ void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gende
             tmp_node = tmp_node->next_letters[tmp_node->nb_next_letters-1];
         }
     }
-    printf("%s %s\n", word, gender);
     addHeadStd(&(tmp_node->spelling_forms), word, gender);
     tmp_node->nb_spelling_forms++;
 
@@ -270,4 +268,35 @@ void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tre
         default: // type inconnu
             printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
     }
+}
+
+char* readRandomWord_SpellingForms(t_tree t, char* gender)
+{
+    /// Cette fonction retourne un mot aléatoire qu'elle prend dans l'arbre qu'on lui donne.
+    /// La fonction ne prend en charge que les formes de base
+
+    char word[40] = "";
+    p_node_letter word_nodes[40];
+    int nb_word_found = 0;
+    int index = 0;
+    p_node_letter tmp_node = t.root;
+
+    while(tmp_node->nb_next_letters != 0)  // Tant qu'on n'est pas sur une feuille on continue à prendre des lettres
+    {
+        if(tmp_node->nb_spelling_forms != 0)
+        {
+            word_nodes[nb_word_found] = tmp_node;
+            nb_word_found++;
+        }
+        index = rand()%tmp_node->nb_next_letters;
+        tmp_node = tmp_node->next_letters[index];
+        strncat(word, &(tmp_node->letter), 1);
+    }
+    word_nodes[nb_word_found] = tmp_node;
+    nb_word_found++;
+
+
+
+
+    return strdup(word);  // on retourne une copie du mot
 }

@@ -5,6 +5,7 @@
 #include "cell.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 p_cell createCell(char* word, char* gender)
 {
@@ -12,8 +13,8 @@ p_cell createCell(char* word, char* gender)
 
     new_cell = (p_cell) malloc(sizeof(t_cell));
 
-    new_cell->word = word;
-    new_cell->gender = gender;
+    new_cell->word = strdup(word);
+    new_cell->gender = strdup(gender);
     new_cell->next = NULL;
     return new_cell;
 }
