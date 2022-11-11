@@ -73,6 +73,12 @@ build CMakeFiles/dictionnaire_arbre.dir/tree.c.obj: C_COMPILER__dictionnaire_arb
   OBJECT_DIR = CMakeFiles\dictionnaire_arbre.dir
   OBJECT_FILE_DIR = CMakeFiles\dictionnaire_arbre.dir
 
+build CMakeFiles/dictionnaire_arbre.dir/reader.c.obj: C_COMPILER__dictionnaire_arbre_Debug C$:/Users/johan/CLionProjects/dictionnaire-arbre/reader.c || cmake_object_order_depends_target_dictionnaire_arbre
+  DEP_FILE = CMakeFiles\dictionnaire_arbre.dir\reader.c.obj.d
+  FLAGS = -g -std=gnu11
+  OBJECT_DIR = CMakeFiles\dictionnaire_arbre.dir
+  OBJECT_FILE_DIR = CMakeFiles\dictionnaire_arbre.dir
+
 build CMakeFiles/dictionnaire_arbre.dir/node.c.obj: C_COMPILER__dictionnaire_arbre_Debug C$:/Users/johan/CLionProjects/dictionnaire-arbre/node.c || cmake_object_order_depends_target_dictionnaire_arbre
   DEP_FILE = CMakeFiles\dictionnaire_arbre.dir\node.c.obj.d
   FLAGS = -g -std=gnu11
@@ -87,7 +93,7 @@ build CMakeFiles/dictionnaire_arbre.dir/node.c.obj: C_COMPILER__dictionnaire_arb
 #############################################
 # Link the executable dictionnaire_arbre.exe
 
-build dictionnaire_arbre.exe: C_EXECUTABLE_LINKER__dictionnaire_arbre_Debug CMakeFiles/dictionnaire_arbre.dir/main.c.obj CMakeFiles/dictionnaire_arbre.dir/cell.c.obj CMakeFiles/dictionnaire_arbre.dir/list.c.obj CMakeFiles/dictionnaire_arbre.dir/tree.c.obj CMakeFiles/dictionnaire_arbre.dir/node.c.obj
+build dictionnaire_arbre.exe: C_EXECUTABLE_LINKER__dictionnaire_arbre_Debug CMakeFiles/dictionnaire_arbre.dir/main.c.obj CMakeFiles/dictionnaire_arbre.dir/cell.c.obj CMakeFiles/dictionnaire_arbre.dir/list.c.obj CMakeFiles/dictionnaire_arbre.dir/tree.c.obj CMakeFiles/dictionnaire_arbre.dir/reader.c.obj CMakeFiles/dictionnaire_arbre.dir/node.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\dictionnaire_arbre.dir
