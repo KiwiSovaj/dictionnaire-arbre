@@ -1,6 +1,14 @@
-//
-// Created by johan on 09/11/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier list.c : contient toutes les fonctions permettant de créer, modifier ou afficher des t_std_word_list
+
+*/
 
 #include "list.h"
 #include <stdlib.h>
@@ -8,6 +16,8 @@
 
 t_std_word_list createEmptyList()
 {
+    /// Cette fonction permet de créer et d'initialiser une t_std_word_list vide. Elle la retourne ensuite.
+
     t_std_word_list list;
     list.head = NULL;
     return list;
@@ -15,6 +25,9 @@ t_std_word_list createEmptyList()
 
 void addHeadStd(t_std_word_list* list, char* word, char* gender)
 {
+    /// Cette fonction permet d'ajouter une cellule contenant les informations données en argument
+    /// en tête d'une t_std_word_list.
+
     p_cell newcell = createCell(word, gender);
     newcell->next = list->head;
     list->head = newcell;
@@ -22,6 +35,8 @@ void addHeadStd(t_std_word_list* list, char* word, char* gender)
 
 void displayStdWordList(t_std_word_list list)
 {
+    /// Cette fonction permet d'afficher une t_std_word_list.
+
     p_cell tmp = list.head;
     if(tmp == NULL)
     {

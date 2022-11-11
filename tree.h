@@ -1,6 +1,14 @@
-//
-// Created by johan on 17/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier tree.h : fichier en-tête de tree.c
+
+*/
 
 #ifndef DICTIONNAIRE_ARBRE_TREE_H
 #define DICTIONNAIRE_ARBRE_TREE_H
@@ -22,7 +30,7 @@ t_tree createTree();
 void addWordTree_BaseForm(t_tree* p_tree, char* word);
 void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
                        t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre, t_tree *t_det);
-char* readRandomWord_BaseForm(t_tree p_tree);
+char* readRandomWord_BaseForm(t_tree t);
 int isWordInTree_BaseForm(t_tree tree, char* word);
 void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv);
 

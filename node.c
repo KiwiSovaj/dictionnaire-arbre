@@ -1,7 +1,14 @@
-//
-// Created by johan on 17/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
 
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier node.c : contient les fonctions permettant de créer des p_node_letter
+
+*/
 #include "node.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,15 +24,4 @@ p_node_letter createNodeLetter(char letter)
     node->spelling_forms = createEmptyList();
 
     return node;
-}
-
-void displayNode(p_node_letter pn)
-{
-    /// Cette fonction affiche le contenu d'une p_node_letter.
-
-    printf("letter : %c\n", pn->letter);
-    printf("%d next letters :\n", pn->nb_next_letters);
-    for(int i=0 ; i<pn->nb_next_letters ; i++)
-        printf("%c ", pn->next_letters[i]->letter);
-    printf("\nil y a %d spelling forms :\n", pn->nb_spelling_forms);
 }

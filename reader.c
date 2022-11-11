@@ -1,11 +1,22 @@
-//
-// Created by Alexis on 19/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier reader.c : contient les fonctions permettant de lire et de séparer les informations
+contenues dans le fichier du dictionnaire
+
+*/
 
 #include "reader.h"
 
 void createSubString(char *String, char *SubString, int from, int to)
 {
+    /// Cette fonction permet de placer dans une sous-chaîne de caractères une partie d'une autre chaîne de caractères.
+
     int lenght = strlen(String);
     if (to==0)
     {
@@ -21,14 +32,16 @@ void createSubString(char *String, char *SubString, int from, int to)
 
 LINE extractFromString(FILE* dictionnary)
 {
+    /// Cette fonction permet de lire une ligne du fichier donné en entrée et de la retourner.
+    /// La structure retournée contient les informations séparées qui étaient contenues dans la ligne qui a été lue.
+
     LINE ligne;
     if (dictionnary != NULL) {
         char spelling_form[TAILLE];
         char base_form[TAILLE];
         char type[TAILLE];
         char gender[TAILLE];
-        char chaine[TAILLE];
-        //while(fgets(chaine, TAILLE, dictionnary) != NULL) {
+
         fscanf(dictionnary, "%s %s %s", spelling_form, base_form, gender);
         createSubString(gender, type, 0, 2);
         createSubString(gender, gender, 3, 0);
@@ -36,8 +49,7 @@ LINE extractFromString(FILE* dictionnary)
         ligne.base_form = base_form;
         ligne.type = type;
         ligne.gender = gender;
-        //printf("%s\n",ligne.type);
-        //}
+
         return ligne;
     }
     else

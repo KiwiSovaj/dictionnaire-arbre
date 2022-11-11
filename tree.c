@@ -1,6 +1,15 @@
-//
-// Created by johan on 17/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier tree.c : contient toutes les fonctions permettant de modifier, de créer ou de lire les arbres
+
+*/
+
 #include "tree.h"
 
 t_tree createTree()
@@ -24,7 +33,6 @@ void addWordTree_BaseForm(t_tree* t, char* word)
     {
         if(tmp_node->nb_next_letters == 0)  // si la node courante n'a pas de lettre suivante, on en ajoute une
         {
-            // displayNode(tmp_node);
             tmp_node->next_letters[0] = createNodeLetter(word[i]);
             tmp_node->nb_next_letters = 1;
             tmp_node = tmp_node->next_letters[0];
@@ -36,19 +44,16 @@ void addWordTree_BaseForm(t_tree* t, char* word)
 
         if(index < tmp_node->nb_next_letters) // si cette condition est vraie, alors on a trouvé la lettre dans la liste
         {
-            // displayNode(tmp_node);
             tmp_node = tmp_node->next_letters[index];
             continue;
         }
         else  // sinon, cela signifie qu'on n'a pas trouvé la lettre et qu'on doit lui créer une node
         {
-            // displayNode(tmp_node);
             tmp_node->next_letters[tmp_node->nb_next_letters] = createNodeLetter(word[i]);
             tmp_node->nb_next_letters ++;
             tmp_node = tmp_node->next_letters[tmp_node->nb_next_letters-1];
         }
     }
-    // displayNode(tmp_node);
 }
 
 void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
@@ -76,7 +81,8 @@ void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t
             else if(line.type[0] == 'A')  // abréviations
                 addWordTree_BaseForm(t_abr, line.base_form);
             else
-                printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+                // printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+                break;
             break;
         }
         case 'v': // adverbes
@@ -108,7 +114,8 @@ void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t
             break;
         }
         default: // type inconnu
-            printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+            // printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+            break;
     }
 }
 
@@ -175,7 +182,7 @@ void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tre
 void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gender)
 {
     /// Cette fonction ajoute un mot dans un arbre n-aire donné.
-    /// Cette fonction prend en charge que les spelling forms
+    /// Cette fonction prend en charge les spelling forms
 
     // printf("%s\n", word);
     // printf("%s\n", gender);
@@ -186,7 +193,6 @@ void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gende
     {
         if(tmp_node->nb_next_letters == 0)  // si la node courante n'a pas de lettre suivante, on en ajoute une
         {
-            // displayNode(tmp_node);
             tmp_node->next_letters[0] = createNodeLetter(base_form[i]);
             tmp_node->nb_next_letters = 1;
             tmp_node = tmp_node->next_letters[0];
@@ -198,13 +204,11 @@ void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gende
 
         if(index < tmp_node->nb_next_letters) // si cette condition est vraie, alors on a trouvé la lettre dans la liste
         {
-            // displayNode(tmp_node);
             tmp_node = tmp_node->next_letters[index];
             continue;
         }
         else  // sinon, cela signifie qu'on n'a pas trouvé la lettre et qu'on doit lui créer une node
         {
-            // displayNode(tmp_node);
             tmp_node->next_letters[tmp_node->nb_next_letters] = createNodeLetter(base_form[i]);
             tmp_node->nb_next_letters ++;
             tmp_node = tmp_node->next_letters[tmp_node->nb_next_letters-1];
@@ -212,15 +216,15 @@ void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gende
     }
     addHeadStd(&(tmp_node->spelling_forms), word, gender);
     tmp_node->nb_spelling_forms++;
-
-    // displayNode(tmp_node);
 }
 
 void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
                              t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre, t_tree *t_det)
 {
-    /// Cette fonction cherche dans quel arbre doit aller le mot qu'on lui donne, et lance ensuite la fonction
-    /// permettant d'ajouter le mot dans l'arbre adapté. Ne fonctionne qu'avec les formes de base
+    /// Cette fonction envoie les informations contenues dans la ligne qu'elle reçoit en entrée dans la fonction
+    /// permettant d'ajouter des mots dans un arbre. Elle associe le bon arbre à ces informations afin qu'elles
+    /// soient placées dans le bon arbre.
+    /// Cette fonction prend en charge les formes fléchies
 
     switch(line.type[2])   // on utilise dans les case la dernière lettre des types de mots pour identifier le dictionnaire, car elles sont toutes différentes sauf dans un cas
     {
@@ -241,7 +245,8 @@ void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tre
             else if(line.type[0] == 'A')  // abréviations
                 addWordTree_SpellingForm(t_abr, line.base_form, line.spelling_form, line.gender);
             else
-                printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+                // printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+                break;
             break;
         }
         case 'v': // adverbes
@@ -273,14 +278,16 @@ void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tre
             break;
         }
         default: // type inconnu
-            printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+            // printf("Type inconnu : %s    Mot associe : %s\n", line.type, line.base_form);
+            break;
     }
 }
 
 char* readRandomWord_SpellingForms(t_tree t, char* gender)
 {
-    /// Cette fonction retourne un mot aléatoire qu'elle prend dans l'arbre qu'on lui donne.
-    /// La fonction ne prend en charge que les formes de base
+    /// Cette fonction cherche une forme fléchie correspondant au genre qu'on lui donne en entrée dans l'arbre
+    /// qu'elle a également reçu en entrée.
+    /// Le genre contient aussi le nombre (singulier / pluriel) et le temps dans le cas d'un verbe(présent, futur...)
 
     p_node_letter word_nodes[40];
     p_node_letter chosen_word;
@@ -288,14 +295,13 @@ char* readRandomWord_SpellingForms(t_tree t, char* gender)
     int index;
     p_node_letter tmp_node;
     p_cell tmp_cell;
-
     do {
         index = 0;
         nb_word_found = 0;
         tmp_node = t.root;
-        while (tmp_node->nb_next_letters != 0) // Tant qu'on n'est pas sur une feuille on continue à prendre des lettres
+        while (tmp_node->nb_next_letters != 0)   // On prend un chemin aléatoire dans l'arbre jusqu'à une feuille
         {
-            if (tmp_node->nb_spelling_forms != 0) {
+            if (tmp_node->nb_spelling_forms != 0) {  // quand on trouve une node contenant des spelling forms, on la stocke
                 word_nodes[nb_word_found] = tmp_node;
                 nb_word_found++;
             }
@@ -305,18 +311,21 @@ char* readRandomWord_SpellingForms(t_tree t, char* gender)
         word_nodes[nb_word_found] = tmp_node;
         nb_word_found++;
 
-        chosen_word = word_nodes[rand() % nb_word_found];
+        chosen_word = word_nodes[rand() % nb_word_found];   // on choisit une des nodes qu'on a stockées au hasard
         tmp_cell = chosen_word->spelling_forms.head;
 
-        while (tmp_cell != NULL && strstr(tmp_cell->gender, gender)==NULL)
+        while (tmp_cell != NULL && strstr(tmp_cell->gender, gender)==NULL)  // on cherche si la node choisie possède une forme du genre cherché
             tmp_cell = tmp_cell->next;
-    } while (tmp_cell==NULL);
+    } while (tmp_cell==NULL);  // on relance la boucle si on n'a pas trouvé le genre cherché
 
     return strdup(tmp_cell->word);  // on retourne une copie du mot
 }
 
 
 void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv) {
+    /// Cette fonction crée une phrase aléatoire contenant des accords et des conjuguaisons corrects.
+    /// Il y a 4 modèles de phrases prédéfinis, la fonction demande à l'utilisateur d'en choisir un.
+
     char* tenses[3] = {"IPre", "IImp", "SPre"};
     char* numbers[2] = {"SG", "PL"};
     char* genders[2] = {"Mas", "Fem"};
@@ -325,13 +334,14 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
     char* persons[3] = {"P1", "P2", "P3"};
     char meta[40];
 
-    printf("Choisissez le modele :\n"
+    printf("\n\nChoisissez le modele :\n"
            "  1. nom - adjectif - verbe - nom\n"
            "  2. nom - 'qui' - verbe - verbe - nom - adjectif\n"
            "  3. verbe - 'vous' - nom - adjectif - ?\n"
            "  4. pronom - verbe - nom - adjectif\n");
     int choice, r;
     do {
+        printf(">>>");
         r = scanf("%d", &choice);
     } while(!r || choice<1 || choice>4);
 
@@ -339,7 +349,7 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
 
     switch (choice) {
 
-        case 1: {
+        case 1: {   //  nom – adjectif – verbe – nom
             number = rand() % 2;
             gender = rand() % 2;
             printf("\n%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
@@ -373,7 +383,7 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
             break;
         }
 
-        case 2: {
+        case 2: {  // nom – "qui" – verbe – verbe – nom – adjectif
             number = rand() % 2;
             gender = rand() % 2;
             printf("\n%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
@@ -418,7 +428,7 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
             break;
         }
 
-        case 3: {
+        case 3: {  // verbe - "vous" - nom - adjectif - ?
             tense = rand() % 3;
             strncat(meta, ":", 1);
             strncat(meta, tenses[tense], 4);
@@ -443,7 +453,7 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
             break;
         }
 
-        case 4: {
+        case 4: {  // pronom - verbe - nom - adjectif
             number = rand()%2;
             pers = rand()%3;
             printf("\n%s ", pronouns[number*4+pers+(pers==2)*rand()%2]);
@@ -472,8 +482,8 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
             break;
         }
 
-        default: {
-            printf("ah bon ?");
+        default: {  // Impossible d'entrer ici normalement (grâce à la saisie sécurisée)
+            printf("Erreur");
             break;
         }
     }
@@ -481,7 +491,11 @@ void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t
 
 
 void searchSpellingInTrees(char* spelling_form, t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv,
-                           t_tree t_abr, t_tree t_pro, t_tree t_con, t_tree t_int, t_tree t_pre, t_tree t_det) {
+                           t_tree t_abr, t_tree t_pro, t_tree t_con, t_tree t_int, t_tree t_pre, t_tree t_det){
+    /// Cette fonction permet de chercher une forme fléchie dans tous les arbres.
+    /// Si le mot cherché est trouvé, elle affiche sa forme de base.
+    /// Dans le cas contraire, elle affiche que le mot n'a pas été trouvé.
+
     char* buffer = (char*) malloc(sizeof(char)*40);
     if (searchSpellingInTree(spelling_form, t_name.root, buffer, "nom")) {
         for (int i = strlen(buffer)-2; i >= 0; --i)
@@ -528,7 +542,13 @@ void searchSpellingInTrees(char* spelling_form, t_tree t_name, t_tree t_adj, t_t
 }
 
 
-int searchSpellingInTree(char* spelling_form, p_node_letter node, char* buffer, char* type) {
+int searchSpellingInTree(char* spelling_form, p_node_letter node, char* buffer, char* type)
+{
+    /// Cette fonction permet de chercher par récurrence une forme fléchie dans un arbre et de récupérer sa
+    /// forme de base, ainsi que ses informations (genre, nombre, temps...).
+    /// La forme de base est stockée dans le buffer, tandis que les informations de la forme
+    ///  fléchie sont affichées directement via la fonction "printGender".
+
     if (node->nb_next_letters==0 && node->nb_spelling_forms==0) {
         return 0;
     }
@@ -554,9 +574,12 @@ int searchSpellingInTree(char* spelling_form, p_node_letter node, char* buffer, 
 
 
 void printGender(char* gender, char* type) {
+    /// Cette fonction permet de convertir les informations du fichier (de la forme "Ver:IPre+SG+P1" par exemple)
+    /// en phrases. Cela permet à l'utilisateur de voir rapidement les informations d'un mot.
+
     char new_gender[40];
 
-    for (int i = 0; i < strlen(gender); ++i) {
+    for (int i = 0; i < strlen(gender); ++i) {   // Si le mot contient plusieurs formes, on garde la 1ere
         if (gender[i]==':' && i>0) {
             new_gender[i] = '\0';
             break;
@@ -565,7 +588,7 @@ void printGender(char* gender, char* type) {
             new_gender[i] = gender[i];
     }
 
-    if (!strcmp(type, "ver")) {
+    if (!strcmp(type, "ver")) {   // conversion des verbes
         if (gender[1]=='P' && gender[3]=='r')
             printf("Participe present");
         else if (gender[1]=='P' && gender[3]=='a')
@@ -605,7 +628,7 @@ void printGender(char* gender, char* type) {
         printf(" du verbe ");
     }
 
-    else if (!strcmp(type, "nom") || !strcmp(type, "adj")) {
+    else if (!strcmp(type, "nom") || !strcmp(type, "adj")) {   // conversion des noms et des adjectifs
         if (strstr(new_gender, "Mas"))
             printf("Masculin");
         else if (strstr(new_gender, "Fem"))
@@ -622,15 +645,15 @@ void printGender(char* gender, char* type) {
             printf(" de l'adjectif ");
     }
 
-    else if (!strcmp(type, "adv")) {
+    else if (!strcmp(type, "adv")) {   // conversion des adverbes
         printf("Adverbe ");
     }
 
-    else if (!strcmp(type, "abr")) {
+    else if (!strcmp(type, "abr")) {   // conversion des abréviations
         printf("Abreviation ");
     }
 
-    else if (!strcmp(type, "pro")) {
+    else if (!strcmp(type, "pro")) {   // conversion des pronoms
         if (!strcmp(gender, "")) printf("Pronom ");
         else {
             if (strstr(new_gender, "Mas"))
@@ -647,15 +670,15 @@ void printGender(char* gender, char* type) {
         }
     }
 
-    else if (!strcmp(type, "abr")) {
+    else if (!strcmp(type, "con")) {   // conversion des conjonctions
         printf("Conjonction ");
     }
 
-    else if (!strcmp(type, "int")) {
+    else if (!strcmp(type, "int")) {   // conversion des interjections
         printf("Interjection ");
     }
 
-    else if (!strcmp(type, "det")) {
+    else if (!strcmp(type, "det")) {   // conversion des déterminants
         if (!strcmp(gender, "")) printf("Determinant ");
         else {
             if (strstr(new_gender, "Mas"))
@@ -672,7 +695,7 @@ void printGender(char* gender, char* type) {
         }
     }
 
-    else if (!strcmp(type, "pre")) {
+    else if (!strcmp(type, "pre")) {   // conversion des prepositions
         printf("Preposition ");
     }
 }

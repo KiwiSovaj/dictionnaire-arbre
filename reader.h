@@ -1,6 +1,14 @@
-//
-// Created by Alexis on 19/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier reader.h : fichier en-tête de reader.c
+
+*/
 
 #ifndef DICTIONNAIRE_ARBRE_READER_H
 #define DICTIONNAIRE_ARBRE_READER_H

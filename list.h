@@ -1,6 +1,14 @@
-//
-// Created by johan on 09/11/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier list.h : fichier en-tête de list.c
+
+*/
 
 #ifndef DICTIONNAIRE_ARBRE_LIST_H
 #define DICTIONNAIRE_ARBRE_LIST_H

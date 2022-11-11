@@ -1,6 +1,14 @@
-//
-// Created by johan on 17/10/2022.
-//
+/*
+-----------------------------------------------------------------------------------
+Projet d'algorithmique et structures de données 2 : générateur automatique de mots
+-----------------------------------------------------------------------------------
+
+Par Johan Leroy, Cédric Hombourger & Alexis Georges
+EFREI L2 groupe A
+
+Fichier node.h : fichier en-tête de node.c
+
+*/
 
 #ifndef DICTIONNAIRE_ARBRE_NODE_H
 #define DICTIONNAIRE_ARBRE_NODE_H
@@ -22,6 +30,5 @@ typedef struct s_node_letter* p_node_letter;
 typedef struct  s_node_letter t_node_letter;
 
 p_node_letter createNodeLetter(char letter);
-void displayNode(p_node_letter);
 
 #endif //DICTIONNAIRE_ARBRE_NODE_H
