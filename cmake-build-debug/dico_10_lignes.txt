@@ -1,3 +1,4 @@
+
 stabilimetre	stabilimetre	Nom:Mas+SG
 stabilisaient	stabiliser	Ver:IImp+PL+P3
 stabilisais	stabiliser	Ver:IImp+SG+P1:IImp+SG+P2

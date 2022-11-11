@@ -21,10 +21,12 @@ Fichier main.c : permet de lancer la boucle principale du programme
 // version CMAKE johan : 3.23
 // Pensez à changer la version dans la première ligne de CMakeLists.txt sinon cela ne marchera pas
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Attention !! Pour que le programme fonctionne, le fichier txt du dictionnaire doit respecter ces 2 conditions :
 /// 1: Il doit y avoir une ligne vide au début du fichier
 /// 2: Il ne doit pas y avoir de retour à la ligne à la fin du fichier
 /// Si ces conditions ne sont pas respectées, le programme ne fonctionnera pas.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
