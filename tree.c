@@ -52,7 +52,7 @@ void addWordTree_BaseForm(t_tree* t, char* word)
 }
 
 void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
-                       t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre)
+                       t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre, t_tree *t_det)
 {
     /// Cette fonction cherche dans quel arbre doit aller le mot qu'on lui donne, et lance ensuite la fonction
     /// permettant d'ajouter le mot dans l'arbre adapté. Ne fonctionne qu'avec les formes de base
@@ -94,9 +94,12 @@ void findAndAddTree_BaseForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t
             addWordTree_BaseForm(t_con, line.base_form);
             break;
         }
-        case 't': // interjections
+        case 't': // interjections et determinants
         {
-            addWordTree_BaseForm(t_int, line.base_form);
+            if (line.type[0]=='I')
+                addWordTree_BaseForm(t_int, line.base_form);
+            else
+                addWordTree_BaseForm(t_det, line.base_form);
             break;
         }
         case 'e':  // prepositions
@@ -214,7 +217,7 @@ void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gende
 }
 
 void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tree *t_verbs, t_tree *t_adv, t_tree *t_abr,
-                             t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre)
+                             t_tree *t_pro, t_tree *t_con, t_tree *t_int, t_tree *t_pre, t_tree *t_det)
 {
     /// Cette fonction cherche dans quel arbre doit aller le mot qu'on lui donne, et lance ensuite la fonction
     /// permettant d'ajouter le mot dans l'arbre adapté. Ne fonctionne qu'avec les formes de base
@@ -256,9 +259,12 @@ void findAndAddTree_SpellingForm(LINE line, t_tree *t_name, t_tree *t_adj, t_tre
             addWordTree_SpellingForm(t_con, line.base_form, line.spelling_form, line.gender);
             break;
         }
-        case 't': // interjections
+        case 't': // interjections et determinants
         {
-            addWordTree_SpellingForm(t_int, line.base_form, line.spelling_form, line.gender);
+            if (line.type[0]=='I')
+                addWordTree_SpellingForm(t_int, line.base_form, line.spelling_form, line.gender);
+            else
+                addWordTree_SpellingForm(t_det, line.base_form, line.spelling_form, line.gender);
             break;
         }
         case 'e':  // prepositions
@@ -302,9 +308,371 @@ char* readRandomWord_SpellingForms(t_tree t, char* gender)
         chosen_word = word_nodes[rand() % nb_word_found];
         tmp_cell = chosen_word->spelling_forms.head;
 
-        while (tmp_cell != NULL && strcmp(tmp_cell->gender, gender))
+        while (tmp_cell != NULL && strstr(tmp_cell->gender, gender)==NULL)
             tmp_cell = tmp_cell->next;
     } while (tmp_cell==NULL);
 
     return strdup(tmp_cell->word);  // on retourne une copie du mot
+}
+
+
+void randomSentences_SpellingForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv) {
+    char* tenses[3] = {"IPre", "IImp", "SPre"};
+    char* numbers[2] = {"SG", "PL"};
+    char* genders[2] = {"Mas", "Fem"};
+    char* articles[6] = {"un", "une", "des", "le", "la", "les"};
+    char* pronouns[8] = {"Je", "Tu", "Il", "Elle", "Nous", "Vous", "Ils", "Elles"};
+    char* persons[3] = {"P1", "P2", "P3"};
+    char meta[40];
+
+    printf("Choisissez le modele :\n"
+           "  1. nom - adjectif - verbe - nom\n"
+           "  2. nom - 'qui' - verbe - verbe - nom - adjectif\n"
+           "  3. verbe - 'vous' - nom - adjectif - ?\n"
+           "  4. pronom - verbe - nom - adjectif\n");
+    int choice, r;
+    do {
+        r = scanf("%d", &choice);
+    } while(!r || choice<1 || choice>4);
+
+    int number, tense, gender, pers;
+
+    switch (choice) {
+
+        case 1: {
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("\n%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s ", readRandomWord_SpellingForms(t_name, meta));
+            printf("%s ", readRandomWord_SpellingForms(t_adj, meta));
+            memset(meta, 0, 40);
+
+            tense = rand() % 3;
+            strncat(meta, ":", 1);
+            strncat(meta, tenses[tense], 4);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            strncat(meta, "+", 1);
+            strncat(meta, "P3", 2);
+            printf("%s ", readRandomWord_SpellingForms(t_verbs, meta));
+            memset(meta, 0, 40);
+
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s.", readRandomWord_SpellingForms(t_name, meta));
+
+            break;
+        }
+
+        case 2: {
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("\n%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s qui ", readRandomWord_SpellingForms(t_name, meta));
+            memset(meta, 0, 40);
+
+            tense = rand() % 3;
+            strncat(meta, ":", 1);
+            strncat(meta, tenses[tense], 4);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            strncat(meta, "+", 1);
+            strncat(meta, "P3", 2);
+            printf("%s ", readRandomWord_SpellingForms(t_verbs, meta));
+            memset(meta, 0, 40);
+
+            tense = rand() % 3;
+            strncat(meta, ":", 1);
+            strncat(meta, tenses[tense], 4);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            strncat(meta, "+", 1);
+            strncat(meta, "P3", 2);
+            printf("%s ", readRandomWord_SpellingForms(t_verbs, meta));
+            memset(meta, 0, 40);
+
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s ", readRandomWord_SpellingForms(t_name, meta));
+            printf("%s.", readRandomWord_SpellingForms(t_adj, meta));
+            memset(meta, 0, 40);
+
+            break;
+        }
+
+        case 3: {
+            tense = rand() % 3;
+            strncat(meta, ":", 1);
+            strncat(meta, tenses[tense], 4);
+            strncat(meta, "+", 1);
+            strncat(meta, "PL", 2);
+            strncat(meta, "+", 1);
+            strncat(meta, "P2", 2);
+            printf("%s-vous ", readRandomWord_SpellingForms(t_verbs, meta));
+            memset(meta, 0, 40);
+
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s ", readRandomWord_SpellingForms(t_name, meta));
+            printf("%s ?", readRandomWord_SpellingForms(t_adj, meta));
+            memset(meta, 0, 40);
+
+            break;
+        }
+
+        case 4: {
+            number = rand()%2;
+            pers = rand()%3;
+            printf("\n%s ", pronouns[number*4+pers+(pers==2)*rand()%2]);
+
+            tense = rand() % 3;
+            strncat(meta, ":", 1);
+            strncat(meta, tenses[tense], 4);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            strncat(meta, "+", 1);
+            strncat(meta, persons[pers], 2);
+            printf("%s ", readRandomWord_SpellingForms(t_verbs, meta));
+            memset(meta, 0, 40);
+
+            number = rand() % 2;
+            gender = rand() % 2;
+            printf("%s ", articles[gender * (1 - number) + number * 2 + rand() % 2 * 3]);
+            strncat(meta, ":", 1);
+            strncat(meta, genders[gender], 3);
+            strncat(meta, "+", 1);
+            strncat(meta, numbers[number], 2);
+            printf("%s ", readRandomWord_SpellingForms(t_name, meta));
+            printf("%s.", readRandomWord_SpellingForms(t_adj, meta));
+            memset(meta, 0, 40);
+
+            break;
+        }
+
+        default: {
+            printf("ah bon ?");
+            break;
+        }
+    }
+}
+
+
+void searchSpellingInTrees(char* spelling_form, t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv,
+                           t_tree t_abr, t_tree t_pro, t_tree t_con, t_tree t_int, t_tree t_pre, t_tree t_det) {
+    char* buffer = (char*) malloc(sizeof(char)*40);
+    if (searchSpellingInTree(spelling_form, t_name.root, buffer, "nom")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_adj.root, buffer, "adj")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_verbs.root, buffer, "ver")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_adv.root, buffer, "adv")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_abr.root, buffer, "abr")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_pro.root, buffer, "pro")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_con.root, buffer, "con")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_int.root, buffer, "int")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_pre.root, buffer, "pre")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else if (searchSpellingInTree(spelling_form, t_det.root, buffer, "det")) {
+        for (int i = strlen(buffer)-2; i >= 0; --i)
+            printf("%c", buffer[i]);
+    }
+    else
+        printf("Mot non trouve");
+}
+
+
+int searchSpellingInTree(char* spelling_form, p_node_letter node, char* buffer, char* type) {
+    if (node->nb_next_letters==0 && node->nb_spelling_forms==0) {
+        return 0;
+    }
+    if (node->nb_spelling_forms!=0) {
+        p_cell tmp = node->spelling_forms.head;
+        while (tmp!=NULL && (strcmp(tmp->word, spelling_form)!=0)) {
+            tmp = tmp->next;
+        }
+        if (tmp!=NULL) {
+            printGender(tmp->gender, type);
+            strncat(buffer, &(node->letter), 1);
+            return 1;
+        }
+    }
+    for (int i = 0; i < node->nb_next_letters; ++i) {
+        if (searchSpellingInTree(spelling_form, node->next_letters[i], buffer, type)) {
+            strncat(buffer, &(node->letter), 1);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+void printGender(char* gender, char* type) {
+    char new_gender[40];
+
+    for (int i = 0; i < strlen(gender); ++i) {
+        if (gender[i]==':' && i>0) {
+            new_gender[i] = '\0';
+            break;
+        }
+        else
+            new_gender[i] = gender[i];
+    }
+
+    if (!strcmp(type, "ver")) {
+        if (gender[1]=='P' && gender[3]=='r')
+            printf("Participe present");
+        else if (gender[1]=='P' && gender[3]=='a')
+            printf("Participe passe");
+        else if (gender[1]=='I' && gender[3]=='r')
+            printf("Present de l'indicatif");
+        else if (gender[1]=='I' && gender[3]=='S')
+            printf("Passe simple de l'indicatif");
+        else if (gender[1]=='I' && gender[2]=='I')
+            printf("Imparfait de l'indicatif");
+        else if (gender[1]=='I' && gender[2]=='F')
+            printf("Futur de l'indicatif");
+        else if (gender[1]=='I' && gender[2]=='n')
+            printf("Infinitif");
+        else if (gender[1]=='S' && gender[2]=='I')
+            printf("Imparfait du subjonctif");
+        else if (gender[1]=='S' && gender[2]=='P')
+            printf("Present du subjonctif");
+        else if (gender[1]=='C' && gender[2]=='P')
+            printf("Present du conditionnel");
+
+        if (strstr(new_gender, "P1"))
+            printf(", premiere personne du");
+        else if (strstr(new_gender, "P2"))
+            printf(", deuxieme personne du");
+        else if (strstr(new_gender, "P3"))
+            printf(", troisieme personne du");
+        if (strstr(new_gender, "Mas"))
+            printf(", masculin");
+        else if (strstr(new_gender, "Fem"))
+            printf(", feminin");
+        if (strstr(new_gender, "PL"))
+            printf(" pluriel");
+        else if (strstr(new_gender, "SG"))
+            printf(" singulier");
+
+        printf(" du verbe ");
+    }
+
+    else if (!strcmp(type, "nom") || !strcmp(type, "adj")) {
+        if (strstr(new_gender, "Mas"))
+            printf("Masculin");
+        else if (strstr(new_gender, "Fem"))
+            printf("Feminin");
+        else if (strstr(new_gender, "InvGen"))
+            printf("Invariable");
+        if (strstr(new_gender, "PL"))
+            printf(" pluriel");
+        else if (strstr(new_gender, "SG"))
+            printf(" singulier");
+        if (!strcmp(type, "nom"))
+            printf(" du nom ");
+        else
+            printf(" de l'adjectif ");
+    }
+
+    else if (!strcmp(type, "adv")) {
+        printf("Adverbe ");
+    }
+
+    else if (!strcmp(type, "abr")) {
+        printf("Abreviation ");
+    }
+
+    else if (!strcmp(type, "pro")) {
+        if (!strcmp(gender, "")) printf("Pronom ");
+        else {
+            if (strstr(new_gender, "Mas"))
+                printf("Masculin");
+            else if (strstr(new_gender, "Fem"))
+                printf("Feminin");
+            else if (strstr(new_gender, "InvGen"))
+                printf("Invariable");
+            if (strstr(new_gender, "PL"))
+                printf(" pluriel");
+            else if (strstr(new_gender, "SG"))
+                printf(" singulier");
+            printf("du pronom ");
+        }
+    }
+
+    else if (!strcmp(type, "abr")) {
+        printf("Conjonction ");
+    }
+
+    else if (!strcmp(type, "int")) {
+        printf("Interjection ");
+    }
+
+    else if (!strcmp(type, "det")) {
+        if (!strcmp(gender, "")) printf("Determinant ");
+        else {
+            if (strstr(new_gender, "Mas"))
+                printf("Masculin");
+            else if (strstr(new_gender, "Fem"))
+                printf("Feminin");
+            else if (strstr(new_gender, "InvGen"))
+                printf("Invariable");
+            if (strstr(new_gender, "PL"))
+                printf(" pluriel");
+            else if (strstr(new_gender, "SG"))
+                printf(" singulier");
+            printf("du determinant ");
+        }
+    }
+
+    else if (!strcmp(type, "pre")) {
+        printf("Preposition ");
+    }
 }
