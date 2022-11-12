@@ -166,6 +166,7 @@ void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tre
     /// Cette fonction génère des phrases aléatoires selon des modèles prédéfinis.
     /// La fonction ne prend en charge que les formes de base
 
+    printf("\n");
     // phrase nom – adjectif – verbe – nom (base forms)
     printf("%s ", readRandomWord_BaseForm(t_name));
     printf("%s ", readRandomWord_BaseForm(t_adj));
@@ -177,6 +178,10 @@ void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tre
     printf("%s ", readRandomWord_BaseForm(t_verbs));
     printf("%s ", readRandomWord_BaseForm(t_name));
     printf("%s\n", readRandomWord_BaseForm(t_adj));
+    // phrase verbe - 'vous' - nom - adjectif - ?
+    printf("%s-vous ", readRandomWord_BaseForm(t_verbs));
+    printf("%s ", readRandomWord_BaseForm(t_name));
+    printf("%s ?\n", readRandomWord_BaseForm(t_adj));
 }
 
 void addWordTree_SpellingForm(t_tree* t, char*base_form, char* word, char* gender)

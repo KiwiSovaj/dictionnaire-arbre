@@ -6,7 +6,7 @@ Projet d'algorithmique et structures de données 2 : générateur automatique de
 Par Johan Leroy, Cédric Hombourger & Alexis Georges
 EFREI L2 groupe A
 
-Fichier main.c : permet de lancer la boucle principale du programme
+Fichier main.c : permet d'initialiser le programme et de lancer la boucle principale
 
 */
 
@@ -72,7 +72,7 @@ int main()
                "0- Quitter\n"
                "1- Chercher un mot parmi les formes de base\n"
                "2- Extraire une forme de base au hasard\n"
-               "3- Generer une phrase avec des formes de base\n"
+               "3- Generer trois phrases avec des formes de base\n"
                "4- Chercher un mot parmi les formes flechies, ainsi que ses informations\n"
                "5- Generer une phrase avec des formes flechies\n");
         do {
