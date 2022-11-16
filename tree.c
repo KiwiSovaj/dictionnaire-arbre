@@ -161,6 +161,30 @@ int isWordInTree_BaseForm(t_tree t, char* word)
     return 1;
 }
 
+void isWordInTrees_BaseForm(char* word, t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv, t_tree t_abr,
+        t_tree t_pro, t_tree t_con, t_tree t_int, t_tree t_pre, t_tree t_det)
+{
+    printf("\n");
+    if(isWordInTree_BaseForm(t_name, word))
+        printf("Ce mot est un nom\n");
+    if(isWordInTree_BaseForm(t_adj, word))
+        printf("Ce mot est un adjectif\n");
+    if(isWordInTree_BaseForm(t_verbs, word))
+        printf("Ce mot est un verbe\n");
+    if(isWordInTree_BaseForm(t_adv, word))
+        printf("Ce mot est un adverbe\n");
+    if(isWordInTree_BaseForm(t_abr, word))
+        printf("Ce mot est une abreviation\n");
+    if(isWordInTree_BaseForm(t_pro, word))
+        printf("Ce mot est un pronom\n");
+    if(isWordInTree_BaseForm(t_int, word))
+        printf("Ce mot est une interjection \n");
+    if(isWordInTree_BaseForm(t_pre, word))
+        printf("Ce mot est une preposition\n");
+    if(isWordInTree_BaseForm(t_det, word))
+        printf("Ce mot est un determinant\n");
+}
+
 void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv)
 {
     /// Cette fonction génère des phrases aléatoires selon des modèles prédéfinis.

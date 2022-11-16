@@ -38,7 +38,6 @@ int main()
     LINE line;
     // attention le fichier à ouvrir doit se trouver dans le dossier cmake-build-debug
     dictionnary = fopen("dictionnaire_non_accentue.txt","r");
-
     // création des différents arbres
     t_tree t_name = createTree();
     t_tree t_verbs = createTree();
@@ -85,21 +84,9 @@ int main()
             case 1:{  // recherche d'une forme de base
                 printf("Saisissez la forme de base a chercher : ");
                 scanf("%s", word);
-                printf("Dans quel dictionnaire voulez-vous chercher le mot ?\n"
-                       "1- Noms              6- Pronoms\n"
-                       "2- Verbes            7- Conjonctions\n"
-                       "3- Adjectifs         8- Interjections\n"
-                       "4- Adverbes          9- Prepositions\n"
-                       "5- Abreviations      10- Determinants\n");
-                do {
-                    printf(">>> ");
-                    scanf("%d", &index);
-                } while (index < 0 || index > 10);
 
-                if(isWordInTree_BaseForm(tree_list[index-1], word))
-                    printf("Le mot a ete trouve dans l'arbre");
-                else
-                    printf("Le mot n'a pas ete trouve dans l'arbre");
+                isWordInTrees_BaseForm(word,t_name, t_adj, t_verbs, t_adv, t_abr, t_pro, t_con, t_int, t_pre, t_det);
+
                 break;
             }
             case 2:{  // choix d'une forme de base au hasard
