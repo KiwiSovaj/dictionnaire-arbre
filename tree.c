@@ -158,31 +158,55 @@ int isWordInTree_BaseForm(t_tree t, char* word)
         else
             tmp_node = tmp_node->next_letters[index];
     }
-    return 1;
+    if(tmp_node->nb_spelling_forms != 0)
+        return 1;
+    else
+        return 0;
 }
 
 void isWordInTrees_BaseForm(char* word, t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv, t_tree t_abr,
         t_tree t_pro, t_tree t_con, t_tree t_int, t_tree t_pre, t_tree t_det)
 {
+    int found = 0;
     printf("\n");
-    if(isWordInTree_BaseForm(t_name, word))
+    if(isWordInTree_BaseForm(t_name, word)) {
         printf("Ce mot est un nom\n");
-    if(isWordInTree_BaseForm(t_adj, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_adj, word)) {
         printf("Ce mot est un adjectif\n");
-    if(isWordInTree_BaseForm(t_verbs, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_verbs, word)) {
         printf("Ce mot est un verbe\n");
-    if(isWordInTree_BaseForm(t_adv, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_adv, word)) {
         printf("Ce mot est un adverbe\n");
-    if(isWordInTree_BaseForm(t_abr, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_abr, word)) {
         printf("Ce mot est une abreviation\n");
-    if(isWordInTree_BaseForm(t_pro, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_pro, word)) {
         printf("Ce mot est un pronom\n");
-    if(isWordInTree_BaseForm(t_int, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_int, word)) {
         printf("Ce mot est une interjection \n");
-    if(isWordInTree_BaseForm(t_pre, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_pre, word)) {
         printf("Ce mot est une preposition\n");
-    if(isWordInTree_BaseForm(t_det, word))
+        found++;
+    }
+    if(isWordInTree_BaseForm(t_det, word)) {
         printf("Ce mot est un determinant\n");
+        found++;
+    }
+    if(found ==0)
+        printf("Le mot n'a pas ete trouve");
 }
 
 void randomSentences_BaseForm(t_tree t_name, t_tree t_adj, t_tree t_verbs, t_tree t_adv)
