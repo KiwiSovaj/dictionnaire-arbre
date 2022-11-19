@@ -141,7 +141,7 @@ char* readRandomWord_BaseForm(t_tree t)
 int isWordInTree_BaseForm(t_tree t, char* word)
 {
     /// Cette fonction cherche dans un arbre donné si le mot qu'on lui passe en argument existe.
-    /// La fonction ne prend en charge que les formes de base
+    /// La fonction ne prend en charge que les formes de base.
 
     int lenght = strlen(word);
     p_node_letter tmp_node = t.root;
